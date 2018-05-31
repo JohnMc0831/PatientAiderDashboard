@@ -5,14 +5,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PatientAiderDashboard.Models;
+using PatientAiderDashboard.Repositories;
 
 namespace PatientAiderDashboard.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ITopicRepository db;
+        public HomeController(ITopicRepository context)
+        {
+            db = context;
+        }
+
         public IActionResult Index()
         {
-            return View();
+            return View(db.GetEncounters());
         }
 
         public IActionResult About()
