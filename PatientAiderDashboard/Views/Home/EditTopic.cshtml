@@ -1,0 +1,98 @@
+﻿@model PatientAiderDashboard.Models.Topics
+
+@{
+    ViewData["Title"] = "EditTopic";
+}
+
+<h2>Edit Topic: @Model.Summary</h2>
+
+<h4>Topic Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditTopic">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TitleGerman" class="control-label"></label>
+                <input asp-for="TitleGerman" class="form-control" />
+                <span asp-validation-for="TitleGerman" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TitleSpanish" class="control-label"></label>
+                <input asp-for="TitleSpanish" class="form-control" />
+                <span asp-validation-for="TitleSpanish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Summary" class="control-label"></label>
+                <input asp-for="Summary" class="form-control" />
+                <span asp-validation-for="Summary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SummaryGerman" class="control-label"></label>
+                <input asp-for="SummaryGerman" class="form-control" />
+                <span asp-validation-for="SummaryGerman" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SummarySpanish" class="control-label"></label>
+                <input asp-for="SummarySpanish" class="form-control" />
+                <span asp-validation-for="SummarySpanish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Body" class="control-label"></label>
+                <input asp-for="Body" class="form-control" />
+                <span asp-validation-for="Body" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BodyGerman" class="control-label"></label>
+                <input asp-for="BodyGerman" class="form-control" />
+                <span asp-validation-for="BodyGerman" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BodySpanish" class="control-label"></label>
+                <input asp-for="BodySpanish" class="form-control" />
+                <span asp-validation-for="BodySpanish" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BackColor" class="control-label"></label>
+                <input asp-for="BackColor" class="form-control" />
+                <span asp-validation-for="BackColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TextColor" class="control-label"></label>
+                <input asp-for="TextColor" class="form-control" />
+                <span asp-validation-for="TextColor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DisplayOrder" class="control-label"></label>
+                <input asp-for="DisplayOrder" class="form-control" />
+                <span asp-validation-for="DisplayOrder" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TopicIcon" class="control-label"></label>
+                <input asp-for="TopicIcon" class="form-control" />
+                <span asp-validation-for="TopicIcon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

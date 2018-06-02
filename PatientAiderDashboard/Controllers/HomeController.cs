@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PatientAiderDashboard.Models;
 using PatientAiderDashboard.Repositories;
 
 namespace PatientAiderDashboard.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly ITopicRepository db;
@@ -39,6 +41,11 @@ namespace PatientAiderDashboard.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+
+        public IActionResult EditTopic(int id)
+        {
+            return View("EditTopic", db.GetTopicById(id));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
