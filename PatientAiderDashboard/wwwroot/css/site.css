@@ -60,3 +60,42 @@ body {
 .fatHead {
     padding-top: 25px;
 }
+
+.sectionHeader {
+    padding: 5px;
+    background-color: lightblue;
+}
+
+.sectionTitle {
+    max-width: 200px;
+    font-size: 14pt;
+}
+
+.encounterTitle {
+    font-size: 16pt;
+}
+
+.noBullet {
+    list-style: none;
+    list-style-type: none;
+}
+
+/* Styles for use with jquery-sortable plugin */
+body.dragging, body.dragging * {
+    cursor: move !important;
+}
+
+.dragged {
+    position: absolute;
+    opacity: 0.5;
+    z-index: 2000;
+}
+
+ul.example li.placeholder {
+    position: relative;
+    /** More li styles **/
+}
+ul.example li.placeholder:before {
+    position: absolute;
+    /** Define arrowhead **/
+}
