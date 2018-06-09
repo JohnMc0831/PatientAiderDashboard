@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using PatientAiderDashboard.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PatientAiderDashboard.Models;
 using PatientAiderDashboard.Repositories;
 
 namespace PatientAiderDashboard
@@ -24,6 +25,7 @@ namespace PatientAiderDashboard
         }
 
         public IConfiguration Configuration { get; }
+        public static string PatientAiderConnectionString { get; private set; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -35,11 +37,10 @@ namespace PatientAiderDashboard
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            PatientAiderConnectionString = Configuration.GetConnectionString("PatientAiderConnection");
+            services.AddDbContext<PatientAiderContext>(options => options.UseLazyLoadingProxies().UseSqlServer(PatientAiderConnectionString));
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ITopicRepository, TopicRepository>();

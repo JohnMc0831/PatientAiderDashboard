@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using PatientAiderDashboard.Models;
 using PatientAiderDashboard.Repositories;
 
@@ -46,6 +47,15 @@ namespace PatientAiderDashboard.Controllers
         public IActionResult EditTopic(int id)
         {
             return View("EditTopic", db.GetTopicById(id));
+        }
+
+        public JsonResult GetTopicsForAddRemove(int sectionId, int encounterId)
+        {
+            var topics = db.GetTopics();
+            var sect = db.GetSectionById(sectionId);
+            var selectedTopics = sect.SectionsXtopics.ToList().Select(st => st.Topic.Id).ToList();
+            var topicsSelectList = new MultiSelectList(topics, "Id", "Title", selectedTopics);
+            return Json(topicsSelectList);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

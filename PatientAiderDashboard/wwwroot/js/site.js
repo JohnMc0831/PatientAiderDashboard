@@ -1,8 +1,4 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
-
-// Write your JavaScript code.
-$(document).ready(function () {
+﻿$(document).ready(function () {
     sortable('.topicList', {
         placeholderClass: "foo"
     });
@@ -23,5 +19,39 @@ $(document).ready(function () {
         topicOrder = topicOrder.substring(0, topicOrder.length - 1);
         //TODO:  ajax call to persist new order to db.
         alert("New Topic Order: " + topicOrder + "");
+    });
+
+    $('.addRemoveTopics').on('click', function () {
+        $.ajax({
+            type: "GET",
+            async: false,
+            cache: false,
+            url: "/Home/GetTopicsForAddRemove/?sectionId=" + $(this).data('sectionid')+ "&encounterId=" + $(this).data('encounterid'),
+            dataType: "json",
+            complete: function (mselect) {
+                var r = mselect.responseJSON;
+                $("#addRemoveTopicsListbox").val('').trigger('chosen:updated');
+                $.each(r, function (index, item) {
+                    if (item.selected) {
+                        $('#addRemoveTopicsListbox').append("<option selected value='" + item.value + "'>" + item.text + "</option>");
+                    } else {
+                        $('#addRemoveTopicsListbox').append("<option value='" + item.value + "'>" + item.text + "</option>");
+                    }
+                });
+                $("#addRemoveTopicsListbox").trigger('chosen:updated');
+                $('#addRemoveTopicsListbox').chosen({
+                    disable_search_threshold: 10,
+                    no_results_text: "Oops, no topics found!",
+                    width: "100%",
+                    placeholder_text_multiple: "Add/Remove Topics..."
+                });
+                $('#addRemoveTopicsDialog').modal('show');
+            }
+        });
+    });
+
+    $("#btnSaveTopics").on("click", function(e) {
+        e.preventDefault();
+        //TODO:  Persist new topic list to db.
     });
 });

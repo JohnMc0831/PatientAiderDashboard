@@ -12,8 +12,7 @@ namespace PatientAiderDashboard.Models
 
         public PatientAiderContext(DbContextOptions<PatientAiderContext> options)
             : base(options)
-        {
-        }
+        {}
 
         public virtual DbSet<Encounters> Encounters { get; set; }
         public virtual DbSet<Footnotes> Footnotes { get; set; }
@@ -32,8 +31,7 @@ namespace PatientAiderDashboard.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseLazyLoadingProxies().UseSqlServer("Server=.\\SQLEXPRESS;Database=PatientSafeDb;Trusted_Connection=True;");
+                optionsBuilder.UseLazyLoadingProxies().UseSqlServer(Startup.PatientAiderConnectionString);
             }
         }
 

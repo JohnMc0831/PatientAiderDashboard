@@ -95,7 +95,7 @@ namespace PatientAiderDashboard.Repositories
 
         public Sections GetSectionById(int id)
         {
-            return db.Sections.Find(id);
+            return db.Sections.Include(s => s.SectionsXtopics).ThenInclude(s => s.Topic).First(s => s.Id == id);
         }
 
         public Sections GetSectionWithTopicsById(int id)
