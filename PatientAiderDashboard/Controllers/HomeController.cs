@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using PatientAiderDashboard.Models;
 using PatientAiderDashboard.Repositories;
 
@@ -57,6 +58,54 @@ namespace PatientAiderDashboard.Controllers
             var topicsSelectList = new MultiSelectList(topics, "Id", "Title", selectedTopics);
             return Json(topicsSelectList);
         }
+
+        public string UpdateTopicsForSection(int sectionId, int encounterId, string[] topics)
+        {
+            List<Topics> newTopics = new List<Topics>();
+            var section = db.GetSectionById(sectionId);
+            string topicOrder = string.Empty;
+            foreach (var t in topics)
+            {
+                topicOrder += $"{t},";
+            }
+
+            topicOrder = topicOrder.Substring(0, topicOrder.Length - 1);
+            section.SectionTopicOrder = topicOrder;
+
+            //Next, actually link the new list of child topics.  To do this, first blow away the current list.
+            //Fuck it, the logic is simpler and this in in-mem, right?
+            foreach (var st in section.SectionsXtopics.ToList())
+            {
+                section.SectionsXtopics.Remove(st);
+            } //flush...
+
+            foreach (var topicId in topics)
+            {
+                int tId = Int32.Parse(topicId);
+                var currentTopic = db.GetTopicById(tId);
+                section.SectionsXtopics.Add(new SectionsXtopics
+                    {
+                        Section = section,
+                        SectionId = section.Id,
+                        Topic = currentTopic,
+                        TopicId = tId
+                    });
+                newTopics.Add(currentTopic);
+            }
+
+            try
+            {
+                db.UpdateSection(section);
+                var topicViewModel = new UpdatedSectionViewModel(section, newTopics);
+                var jsonTopics = JsonConvert.SerializeObject(topicViewModel);
+                return jsonTopics;
+            }
+            catch (Exception e)
+            {
+                return "Update Failed";
+            }
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

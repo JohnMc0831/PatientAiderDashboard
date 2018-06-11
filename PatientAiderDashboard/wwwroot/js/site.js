@@ -22,6 +22,8 @@
     });
 
     $('.addRemoveTopics').on('click', function () {
+        var sectId = $(this).data('sectionid');
+        var encId = $(this).data('encounterid');
         $.ajax({
             type: "GET",
             async: false,
@@ -45,13 +47,42 @@
                     width: "100%",
                     placeholder_text_multiple: "Add/Remove Topics..."
                 });
+                $('#sectionId').val(sectId);
+                $('#encounterId').val(encId);
                 $('#addRemoveTopicsDialog').modal('show');
             }
         });
     });
 
-    $("#btnSaveTopics").on("click", function(e) {
-        e.preventDefault();
-        //TODO:  Persist new topic list to db.
-    });
+    $("#btnSaveTopics").on("click",
+        function(e) {
+            e.preventDefault();
+            //TODO:  Persist new topic list to db.
+            var selectedTopics = $('#addRemoveTopicsListbox').chosen().val();
+
+            $.ajax({
+                type: "POST",
+                async: false,
+                cache: false,
+                data: { "topics": selectedTopics},
+                url: "/Home/UpdateTopicsForSection/?sectionId=" +
+                    $('#sectionId').val() +
+                    "&encounterId=" +
+                    $('#encounterId').val(),
+                dataType: "json",
+                complete: function (model) {
+                    if (model.responseJSON.Initialized) {
+                        var listName = '#' + model.responseJSON.SectionTopicListName;
+                        $(listName).empty();
+                        $.each(model.responseJSON.Topics, function(index, item) {
+                            $(listName).append('<li>' + 
+                                '<a asp-controller="Home" data-id="' + item.Id + '" title="' + item.Title + '" - "' + item.Summary  + '" ' +
+                                'asp-action="EditTopic" asp-route-id="' + item.Id +  '">' + item.Title + '</a></li>');
+                        });
+                    }
+                    $(model.responseJSON.SectionTopicListName).trigger('chosen:updated');
+                    $("#addRemoveTopicsDialog").modal("hide");
+                }
+            });
+});
 });
