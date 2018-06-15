@@ -59,18 +59,10 @@ namespace PatientAiderDashboard.Controllers
             return Json(topicsSelectList);
         }
 
-        public string UpdateTopicsForSection(int sectionId, int encounterId, string[] topics)
+        public string UpdateTopicsForSection(int sectionId, int encounterId, string topics)
         {
             List<Topics> newTopics = new List<Topics>();
             var section = db.GetSectionById(sectionId);
-            string topicOrder = string.Empty;
-            foreach (var t in topics)
-            {
-                topicOrder += $"{t},";
-            }
-
-            topicOrder = topicOrder.Substring(0, topicOrder.Length - 1);
-            section.SectionTopicOrder = topicOrder;
 
             //Next, actually link the new list of child topics.  To do this, first blow away the current list.
             //Fuck it, the logic is simpler and this in in-mem, right?
@@ -79,7 +71,7 @@ namespace PatientAiderDashboard.Controllers
                 section.SectionsXtopics.Remove(st);
             } //flush...
 
-            foreach (var topicId in topics)
+            foreach (var topicId in topics.Split(','))
             {
                 int tId = Int32.Parse(topicId);
                 var currentTopic = db.GetTopicById(tId);
@@ -92,7 +84,7 @@ namespace PatientAiderDashboard.Controllers
                     });
                 newTopics.Add(currentTopic);
             }
-
+            section.SectionTopicOrder = topics;
             try
             {
                 db.UpdateSection(section);

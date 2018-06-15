@@ -99,3 +99,7 @@ ul.example li.placeholder:before {
     position: absolute;
     /** Define arrowhead **/
 }
+
+.dirty {
+    background-color: #eee8aa;
+}

@@ -40,7 +40,7 @@ namespace PatientAiderDashboard
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             PatientAiderConnectionString = Configuration.GetConnectionString("PatientAiderConnection");
             services.AddDbContext<PatientAiderContext>(options => options.UseLazyLoadingProxies().UseSqlServer(PatientAiderConnectionString));
-            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ITopicRepository, TopicRepository>();

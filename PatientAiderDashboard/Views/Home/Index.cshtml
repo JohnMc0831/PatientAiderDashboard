@@ -37,23 +37,27 @@
                         <ul class="noBullet">
                             @foreach (var sect in encounter.Sections)
                             {
+                                var sectName = sect.SectionName.Replace(" ", "-");
+                                var encName = encounter.EncounterName.Replace(" ", "-");
                                 <li class="sectionHeader">
                                     <div class="row">
                                         <div class="col-sm-8">
                                             <span class="sectionTitle">@sect.SectionName</span>
                                         </div>
                                         <div class="col-sm-4 text-right">
-                                            <a href="#" title="Save Topic Order" data-listid="@encounter.EncounterName-@sect.SectionName-topicList" style="margin-right: 0;" class="btn btn-sm btn-info saveTopicOrder"><span class="glyphicon glyphicon-saved"></span></a>
+                                            <a href="#" id="@encName-@sectName-saveTopicOrderButton" title="Save Topic Order" data-sectionid="@sect.Id" data-encounterid="@encounter.Id" data-listid="@encName-@sectName-topicList" style="margin-right: 0;" class="btn btn-sm btn-info saveTopicOrder"><span class="glyphicon glyphicon-saved"></span></a>
                                             <a href="#" title="Add or Remove Topics" data-sectionid="@sect.Id" data-encounterid="@encounter.Id" style="margin-left: 5px;" class="btn btn-sm btn-success addRemoveTopics"><span class="glyphicon glyphicon-pencil"></span></a>
                                         </div>
                                     </div>
                                 </li>
-                                <ul id="@encounter.EncounterName-@sect.SectionName-topicList" class="topicList">
-                                    @foreach (var st in sect.SectionsXtopics)
+                                <ul id="@encName-@sectName-topicList" data-sectionid="@sect.Id" data-encounterid="@encounter.Id" class="topicList">
+                                    @foreach (var id in sect.SectionTopicOrder.Split(','))
                                     {
+                                        var sectionTopic = sect.SectionsXtopics.First(st => st.TopicId == Int32.Parse(id) && st.SectionId == sect.Id);
                                         <li>
-                                            <a asp-controller="Home" data-id="@st.Topic.Id" title="@st.Topic.Title - @st.Topic.Summary" asp-action="EditTopic" asp-route-id="@st.Topic.Id">@st.Topic.Title</a>
-                                        </li>                                    }
+                                            <a asp-controller="Home" data-id="@sectionTopic.Topic.Id" title="@sectionTopic.Topic.Title - @sectionTopic.Topic.Summary" asp-action="EditTopic" asp-route-id="@sectionTopic.Topic.Id">@sectionTopic.Topic.Title</a>
+                                        </li>
+                                    }
                                 </ul>
                             }
                         </ul>
@@ -61,6 +65,7 @@
                 </tr>
             }
             </tbody>
+
         </table>
     </div>
 </div>
