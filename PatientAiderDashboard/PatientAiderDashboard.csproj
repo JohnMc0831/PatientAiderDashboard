@@ -5,14 +5,111 @@
     <UserSecretsId>aspnet-PatientAiderDashboard-64771FB4-E439-4CBA-BCE4-A313CF2ACEA4</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="wwwroot\lib\node_modules\**" />
+    <Content Remove="wwwroot\lib\node_modules\**" />
+    <EmbeddedResource Remove="wwwroot\lib\node_modules\**" />
+    <None Remove="wwwroot\lib\node_modules\**" />
+  </ItemGroup>
+
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="4.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="2.1.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Identity\Services\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\lib\font-awesome\.npmignore" />
+    <None Include="wwwroot\lib\font-awesome\css\font-awesome.css.map" />
+    <None Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\lib\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="wwwroot\lib\font-awesome\less\animated.less" />
+    <None Include="wwwroot\lib\font-awesome\less\bordered-pulled.less" />
+    <None Include="wwwroot\lib\font-awesome\less\core.less" />
+    <None Include="wwwroot\lib\font-awesome\less\fixed-width.less" />
+    <None Include="wwwroot\lib\font-awesome\less\font-awesome.less" />
+    <None Include="wwwroot\lib\font-awesome\less\icons.less" />
+    <None Include="wwwroot\lib\font-awesome\less\larger.less" />
+    <None Include="wwwroot\lib\font-awesome\less\list.less" />
+    <None Include="wwwroot\lib\font-awesome\less\mixins.less" />
+    <None Include="wwwroot\lib\font-awesome\less\path.less" />
+    <None Include="wwwroot\lib\font-awesome\less\rotated-flipped.less" />
+    <None Include="wwwroot\lib\font-awesome\less\screen-reader.less" />
+    <None Include="wwwroot\lib\font-awesome\less\stacked.less" />
+    <None Include="wwwroot\lib\font-awesome\less\variables.less" />
+    <None Include="wwwroot\lib\font-awesome\README.md" />
+    <None Include="wwwroot\lib\font-awesome\scss\font-awesome.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_animated.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_bordered-pulled.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_core.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_fixed-width.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_icons.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_larger.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_list.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_mixins.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_path.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_rotated-flipped.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_screen-reader.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_stacked.scss" />
+    <None Include="wwwroot\lib\font-awesome\scss\_variables.scss" />
+    <None Include="wwwroot\lib\qtip2\.eslintrc" />
+    <None Include="wwwroot\lib\qtip2\.gitattributes" />
+    <None Include="wwwroot\lib\qtip2\.npmignore" />
+    <None Include="wwwroot\lib\qtip2\.travis.yml" />
+    <None Include="wwwroot\lib\qtip2\dist\basic\jquery.qtip.js" />
+    <None Include="wwwroot\lib\qtip2\dist\basic\jquery.qtip.min.js" />
+    <None Include="wwwroot\lib\qtip2\dist\basic\jquery.qtip.min.map" />
+    <None Include="wwwroot\lib\qtip2\dist\jquery.qtip.js" />
+    <None Include="wwwroot\lib\qtip2\dist\jquery.qtip.min.js" />
+    <None Include="wwwroot\lib\qtip2\dist\jquery.qtip.min.map" />
+    <None Include="wwwroot\lib\qtip2\generate-bower.json.js" />
+    <None Include="wwwroot\lib\qtip2\Gruntfile.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\aliases.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\clean.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\concat.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\csslint.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\cssmin.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\eslint.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\replace.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\tasks\init.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\uglify.js" />
+    <None Include="wwwroot\lib\qtip2\grunt\watch.js" />
+    <None Include="wwwroot\lib\qtip2\LICENSE" />
+    <None Include="wwwroot\lib\qtip2\README.md" />
+    <None Include="wwwroot\lib\qtip2\src\core\button.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\class.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\constants.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\content.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\defaults.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\disable.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\events.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\focus.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\intro.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\jquery_methods.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\jquery_overrides.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\options.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\outro.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\position.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\style.js" />
+    <None Include="wwwroot\lib\qtip2\src\core\toggle.js" />
+    <None Include="wwwroot\lib\qtip2\src\ie6\ie6.js" />
+    <None Include="wwwroot\lib\qtip2\src\modal\modal.js" />
+    <None Include="wwwroot\lib\qtip2\src\position\imagemap.js" />
+    <None Include="wwwroot\lib\qtip2\src\position\polys.js" />
+    <None Include="wwwroot\lib\qtip2\src\position\svg.js" />
+    <None Include="wwwroot\lib\qtip2\src\position\viewport.js" />
+    <None Include="wwwroot\lib\qtip2\src\tips\tips.js" />
   </ItemGroup>
 
 </Project>

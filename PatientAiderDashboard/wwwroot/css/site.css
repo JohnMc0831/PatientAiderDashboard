@@ -33,15 +33,19 @@ body {
     color: white;
 }
 
-.navbar a:link {
+.navbar li a:link {
     color: white;
+}
+
+.navbar li a:hover {
+    color: rgb(2,0, 36);
 }
 
 .text-white {
     color: white !important;
 }
 
-.text-white a:link {
+ .navbar-nav a:link {
     color: white !important;
 }
 
@@ -73,7 +77,10 @@ body {
 
 .encounterTitle {
     font-size: 16pt;
+    color: cornflowerblue;
+    font-weight: bold;
 }
+
 
 .noBullet {
     list-style: none;
@@ -102,4 +109,19 @@ ul.example li.placeholder:before {
 
 .dirty {
     background-color: #eee8aa;
+}
+
+.body-content {
+    border-radius: 0 0 14px 14px;
+}
+
+.shadow {
+    -webkit-box-shadow: 10px 11px 0px -4px rgba(71,67,71,1);
+    -moz-box-shadow: 10px 11px 0px -4px rgba(71,67,71,1);
+    box-shadow: 10px 11px 0px -4px rgba(71,67,71,1);
+    margin: 20px;
+}
+
+.text-white {
+    color: white;
 }

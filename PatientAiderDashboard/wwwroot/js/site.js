@@ -1,4 +1,26 @@
 ﻿$(document).ready(function () {
+    $('#topicInfo').qtip({
+        content: {
+            text: "Topics can be sorted by dragging and dropping them into the desired order, then clicking the <strong>Save Topic Order</strong> button.",
+            title: "How to sort topics"
+        },
+        style: {
+            classes: "qtip-blue qtip-rounded qtip-shadow qtip-bootstrap"
+        }
+    });
+
+    $('.saveTopicOrder').qtip({
+        style: {
+            classes: "qtip-rounded qtip-shadow qtip-bootstrap"
+        }
+    });
+
+    $('.addRemoveTopics').qtip({
+        style: {
+            classes: "qtip-rounded qtip-shadow qtip-bootstrap"
+        }
+    });
+
     sortable('.topicList');
 
     $(".saveTopicOrder").on("click", function(e) {

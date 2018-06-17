@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
@@ -41,7 +42,7 @@ namespace PatientAiderDashboard
             PatientAiderConnectionString = Configuration.GetConnectionString("PatientAiderConnection");
             services.AddDbContext<PatientAiderContext>(options => options.UseLazyLoadingProxies().UseSqlServer(PatientAiderConnectionString));
             services.AddDefaultIdentity<IdentityUser>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultUI();
-
+            services.AddAutoMapper(typeof(MappingProfile));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddTransient<ITopicRepository, TopicRepository>();
         }

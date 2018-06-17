@@ -10,6 +10,7 @@ namespace PatientAiderDashboard.Repositories
 {
     public interface ITopicRepository
     {
+        List<TopicMetadata> GetTopicMetadata();
         Footnotes GetFootnotes();
         void UpdateFootnotes(Footnotes notes);
         List<Encounters> GetEncounters();
@@ -123,6 +124,11 @@ namespace PatientAiderDashboard.Repositories
         public List<Topics> GetTopics()
         {
             return db.Topics.OrderBy(t => t.DisplayOrder).ToList();
+        }
+
+        public List<TopicMetadata> GetTopicMetadata()
+        {
+            return db.Topics.OrderBy(t => t.Id).Select(t => new TopicMetadata(t)).ToList();
         }
 
 

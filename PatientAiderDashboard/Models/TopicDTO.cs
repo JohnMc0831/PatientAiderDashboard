@@ -30,6 +30,11 @@
 
         public string TopicIcon { get; set; }
 
+        public TopicDTO()
+        {
+            
+        }
+
         public TopicDTO(Topics t)
         {
             Id = t.Id;

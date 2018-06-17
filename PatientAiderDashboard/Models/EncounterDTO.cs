@@ -11,6 +11,12 @@ namespace PatientAiderDashboard.Models
         public string EncounterName { get; set; }
         public IEnumerable<SectionDTO> Sections { get; set; }
 
+        public EncounterDTO()
+        {
+
+            
+        }
+
         public EncounterDTO(Encounters e)
         {
             id = e.Id;

@@ -15,19 +15,18 @@ namespace PatientAiderDashboard.Models
         [StringLength(50)]
         public string SectionIcon { get; set; }
 
-        public List<int> TopicIds { get; set; }
-
         public string SectionTopicOrder { get; set; }
 
-        public IEnumerable<TopicDTO> Topics { get; set; }
-
+        public SectionDTO()
+        {
+            
+        }
         public SectionDTO(Sections s)
         {
             Id = s.Id;
             EncounterId = s.EncounterId.HasValue ? s.EncounterId : 0;
             SectionName = s.SectionName;
             SectionIcon = s.SectionIcon;
-            Topics = s.SectionsXtopics.ToList().Select(st => new TopicDTO(st.Topic)).ToList();
         }
 
     }
