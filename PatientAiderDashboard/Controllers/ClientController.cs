@@ -4,11 +4,13 @@ using PatientAiderDashboard.Models;
 using PatientAiderDashboard.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 
-namespace PatientAiderDashboard
+namespace PatientAiderDashboard.Controllers
 {
     [Route("api/client")]
     [ApiController]
+    [AllowAnonymous]
     public class ClientController : ControllerBase
     {
         private readonly IMapper mapper;
@@ -51,6 +53,20 @@ namespace PatientAiderDashboard
         public IEnumerable<TopicMetadata> GetTopics()
         {
             return db.GetTopicMetadata();
+        }
+
+        [HttpGet("topic/{id}")]
+        public TopicDTO GetTopicById(int id)
+        {
+            var topic = db.GetTopicById(id);
+            var topicDto = mapper.Map<Topics, TopicDTO>(topic);
+            return topicDto;
+        }
+
+        [HttpGet("footnotes")]
+        public Footnotes GetFootnotes()
+        {
+            return db.GetFootnotes();
         }
     }
 }
