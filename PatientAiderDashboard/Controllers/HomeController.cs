@@ -63,6 +63,7 @@ namespace PatientAiderDashboard.Controllers
         {
             List<Topics> newTopics = new List<Topics>();
             var section = db.GetSectionById(sectionId);
+            List<TopicMetadata> topicMetadataList = new List<TopicMetadata>();
 
             //Next, actually link the new list of child topics.  To do this, first blow away the current list.
             //Fuck it, the logic is simpler and this in in-mem, right?
@@ -75,20 +76,23 @@ namespace PatientAiderDashboard.Controllers
             {
                 int tId = Int32.Parse(topicId);
                 var currentTopic = db.GetTopicById(tId);
+
                 section.SectionsXtopics.Add(new SectionsXtopics
-                    {
-                        Section = section,
-                        SectionId = section.Id,
-                        Topic = currentTopic,
-                        TopicId = tId
-                    });
+                {
+                    Section = section,
+                    SectionId = section.Id,
+                    Topic = currentTopic,
+                    TopicId = tId
+                });
                 newTopics.Add(currentTopic);
+                topicMetadataList.Add(new TopicMetadata(currentTopic));
             }
-            section.SectionTopicOrder = topics;
+
+            section.SectionTopicOrder = JsonConvert.SerializeObject(topicMetadataList);
             try
             {
                 db.UpdateSection(section);
-                var topicViewModel = new UpdatedSectionViewModel(section, newTopics);
+                var topicViewModel = new UpdatedSectionViewModel(section, topicMetadataList);
                 var jsonTopics = JsonConvert.SerializeObject(topicViewModel);
                 return jsonTopics;
             }

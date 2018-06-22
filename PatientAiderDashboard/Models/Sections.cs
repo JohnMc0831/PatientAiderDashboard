@@ -18,7 +18,6 @@ namespace PatientAiderDashboard.Models
         public string SectionName { get; set; }
         [StringLength(50)]
         public string SectionIcon { get; set; }
-        [StringLength(255)]
         public string SectionTopicOrder { get; set; }
 
         [ForeignKey("EncounterId")]

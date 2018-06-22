@@ -19,5 +19,10 @@ namespace PatientAiderDashboard.Models
             Summary = t.Summary;
             Icon = t.TopicIcon;
         }
+
+        public TopicMetadata()
+        {
+            
+        }
     }
 }

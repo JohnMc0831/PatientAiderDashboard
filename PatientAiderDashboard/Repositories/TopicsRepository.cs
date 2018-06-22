@@ -56,31 +56,6 @@ namespace PatientAiderDashboard.Repositories
         {
             List<Encounters> encounters = db.Encounters.OrderBy(e => e.Id).ToList();
             return encounters;
-            //List<EncounterDTO> encs = encounters.Select(e => new EncounterDTO(e)).ToList();
-            //foreach (var enc in encs)
-            //{
-            //    foreach (var section in enc.Sections)
-            //    {
-            //        section.Topics = new List<TopicDTO>();
-            //        var s = db.Sections.Include(sect => sect.Topics).First(sect => sect.id == section.id);
-            //        //Order the topics according to the SetionTopicOrder property on the Section object.
-            //        var topicOrder = s.SectionTopicOrder.Split(',');
-            //        foreach (var topicId in topicOrder)
-            //        {
-            //            int id = Int32.Parse(topicId);
-            //            foreach (var topic in s.Topics)
-            //            {
-            //                if (topic.id == id)
-            //                {
-            //                    //hit!
-            //                    section.Topics.Add(new TopicDTO(topic));
-            //                }
-            //            }
-            //        }
-            //        //section.Topic = s.Topic.Select(t => new TopicDTO(t)).ToList();
-            //    }
-            //}
-            //return encs;
         }
 
         public List<Sections> GetSections()

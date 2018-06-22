@@ -8,7 +8,7 @@ namespace PatientAiderDashboard.Models
     public class UpdatedSectionViewModel
     {
         public SectionDTO Section { get; set; }
-        public List<TopicDTO> Topics { get; set; }
+        public List<TopicMetadata> Topics { get; set; }
         public string SectionTopicListName { get; set; }
         public bool Initialized { get; set; }
 
@@ -17,10 +17,10 @@ namespace PatientAiderDashboard.Models
             Initialized = false;
         }
 
-        public UpdatedSectionViewModel(Sections section, List<Topics> topics)
+        public UpdatedSectionViewModel(Sections section, List<TopicMetadata> topics)
         {
             Section = new SectionDTO(section);
-            Topics = topics.Select(t => new TopicDTO(t)).ToList();
+            Topics = topics;
             SectionTopicListName = $"{section.Encounter.EncounterName}-{section.SectionName}-topicList";
             Initialized = true;
         }

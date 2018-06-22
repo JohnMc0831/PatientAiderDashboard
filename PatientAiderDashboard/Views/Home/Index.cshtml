@@ -1,4 +1,5 @@
-﻿@model IEnumerable<PatientAiderDashboard.Models.Encounters>
+﻿@using Newtonsoft.Json
+@model IEnumerable<PatientAiderDashboard.Models.Encounters>
 
 @{
     ViewData["Title"] = "PatientAider Administration Dashboard";
@@ -51,12 +52,27 @@
                                     </div>
                                 </li>
                                 <ul id="@encName-@sectName-topicList" data-sectionid="@sect.Id" data-encounterid="@encounter.Id" class="topicList">
-                                    @foreach (var id in sect.SectionTopicOrder.Split(','))
-                                    {
-                                        var sectionTopic = sect.SectionsXtopics.First(st => st.TopicId == Int32.Parse(id) && st.SectionId == sect.Id);
-                                        <li>
-                                            <a asp-controller="Home" data-id="@sectionTopic.Topic.Id" title="@sectionTopic.Topic.Title - @sectionTopic.Topic.Summary" asp-action="EditTopic" asp-route-id="@sectionTopic.Topic.Id">@sectionTopic.Topic.Title</a>
-                                        </li>
+                                    @{
+                                        try
+                                        {
+                                            var topics = JsonConvert.DeserializeObject<List<Topics>>(sect.SectionTopicOrder);
+                                            foreach (var t in topics)
+                                            {
+                                                <li>
+                                                    <a asp-controller="Home" data-id="@t.Id" title="@t.Title - @t.Summary" asp-action="EditTopic" asp-route-id="@t.Id">@t.Title</a>
+                                                </li>
+                                            }
+                                        }
+                                        catch (Exception e)
+                                        {
+                                            var topics = sect.SectionTopicOrder.Split(',');
+                                            foreach (var t in sect.SectionsXtopics)
+                                            {
+                                                <li>
+                                                    <a asp-controller="Home" data-id="@t.Topic.Id" title="@t.Topic.Title - @t.Topic.Summary" asp-action="EditTopic" asp-route-id="@t.Topic.Id">@t.Topic.Title</a>
+                                                </li>
+                                            }
+                                        }
                                     }
                                 </ul>
                             }

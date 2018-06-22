@@ -23,17 +23,16 @@ namespace PatientAiderDashboard.Controllers
         }
 
         [HttpGet("encounters")]
-        public IEnumerable<EncounterDTO> GetEncounters()
+        public IEnumerable<Encounters> GetEncounters()
         {
             var encs = db.GetEncounters();
-            List<EncounterDTO> encounters = new List<EncounterDTO>();
-            List<SectionDTO> sections = new List<SectionDTO>();
-            foreach (var enc in encs)
-            {
-                var encounter = (mapper.Map<Encounters, EncounterDTO>(enc));
-                encounters.Add(encounter);   
-            }
-            return encounters;
+            //List<EncounterDTO> encounters = new List<EncounterDTO>();
+            //foreach (var enc in encs)
+            //{
+            //    var encounter = (mapper.Map<Encounters, EncounterDTO>(enc));
+            //    encounters.Add(encounter);   
+            //}
+            return encs;
         }
 
         [HttpGet("sections")]

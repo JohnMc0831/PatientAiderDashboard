@@ -10,9 +10,6 @@ namespace PatientAiderDashboard.Models
         public Topics()
         {
             SectionsXtopics = new HashSet<SectionsXtopics>();
-            TopicsLinks = new HashSet<TopicsLinks>();
-            TopicsMedia = new HashSet<TopicsMedia>();
-            TopicsReferences = new HashSet<TopicsReferences>();
         }
 
         [Column("id")]
@@ -35,11 +32,5 @@ namespace PatientAiderDashboard.Models
 
         [InverseProperty("Topic")]
         public virtual ICollection<SectionsXtopics> SectionsXtopics { get; set; }
-        [InverseProperty("Topic")]
-        public virtual ICollection<TopicsLinks> TopicsLinks { get; set; }
-        [InverseProperty("Topic")]
-        public virtual ICollection<TopicsMedia> TopicsMedia { get; set; }
-        [InverseProperty("Topic")]
-        public virtual ICollection<TopicsReferences> TopicsReferences { get; set; }
     }
 }

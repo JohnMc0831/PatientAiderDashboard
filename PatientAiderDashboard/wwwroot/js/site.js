@@ -29,7 +29,7 @@
         var list = $('#' + $(this).data('listid'));
         var sectionId = $(this).data('sectionid');
         var encId = $(this).data('encounterid');
-        persistNewTopicOrder(list, sectionId, encId);
+        persistNewTopicOrder(list, sectionId, encId, "saveOrder");
         $(list).removeClass("dirty");
     });
 
@@ -48,7 +48,7 @@
         return topicOrder;
     }
 
-    function persistNewTopicOrder(list, sectionId, encounterId) {
+    function persistNewTopicOrder(list, sectionId, encounterId, updateType) {
         var topicOrder = saveTopicOrderToString(list);
         //ajax call to persist new order to db.
         $.ajax({
@@ -59,24 +59,32 @@
             dataType: "json",
             complete: function (mselect) {
                 var r = mselect.responseJSON;
-                $("#addRemoveTopicsListbox").val('').trigger('chosen:updated');
-                $.each(r, function (index, item) {
-                    if (item.selected) {
-                        $('#addRemoveTopicsListbox').append("<option selected value='" + item.value + "'>" + item.text + "</option>");
-                    } else {
-                        $('#addRemoveTopicsListbox').append("<option value='" + item.value + "'>" + item.text + "</option>");
-                    }
-                });
-                $("#addRemoveTopicsListbox").trigger('chosen:updated');
-                $('#addRemoveTopicsListbox').chosen({
-                    disable_search_threshold: 10,
-                    no_results_text: "Oops, no topics found!",
-                    width: "100%",
-                    placeholder_text_multiple: "Add/Remove Topics..."
-                });
-                $('#sectionId').val(sectId);
-                $('#encounterId').val(encId);
-                $('#addRemoveTopicsDialog').modal('show');
+                if (updateType !== "saveOrder") {
+                    $("#addRemoveTopicsListbox").val('').trigger('chosen:updated');
+                    $.each(r,
+                        function(index, item) {
+                            if (item.selected) {
+                                $('#addRemoveTopicsListbox').append("<option selected value='" +
+                                    item.value +
+                                    "'>" +
+                                    item.text +
+                                    "</option>");
+                            } else {
+                                $('#addRemoveTopicsListbox')
+                                    .append("<option value='" + item.value + "'>" + item.text + "</option>");
+                            }
+                        });
+                    $("#addRemoveTopicsListbox").trigger('chosen:updated');
+                    $('#addRemoveTopicsListbox').chosen({
+                        disable_search_threshold: 10,
+                        no_results_text: "Oops, no topics found!",
+                        width: "100%",
+                        placeholder_text_multiple: "Add/Remove Topics..."
+                    });
+                    $('#sectionId').val(sectionId);
+                    $('#encounterId').val(encounterId);
+                    $('#addRemoveTopicsDialog').modal('show');
+                }
             }
         });
     }
@@ -136,9 +144,10 @@
         var selectedTopics = $('#addRemoveTopicsListbox').chosen().val();
         var topicOrder = "";
 
-        $.each(selectedTopics, function(index, item) {
-            topicOrder += item + ",";
-        });
+        $.each(selectedTopics,
+            function(index, item) {
+                topicOrder += item + ",";
+            });
 
         topicOrder = topicOrder.substr(0, topicOrder.length - 1);
 
@@ -146,19 +155,33 @@
             type: "POST",
             async: false,
             cache: false,
-            data: { "topics": selectedTopics},
-            url: "/Home/UpdateTopicsForSection/?sectionId=" + $('#sectionId').val() + "&encounterId=" + $('#encounterId').val() + "&topics=" + topicOrder,
+            data: { "topics": selectedTopics },
+            url: "/Home/UpdateTopicsForSection/?sectionId=" +
+                $('#sectionId').val() +
+                "&encounterId=" +
+                $('#encounterId').val() +
+                "&topics=" +
+                topicOrder,
             dataType: "json",
-            complete: function (model) {
-                if (model.responseJSON.Initialized) {
-                    var listName = '#' + model.responseJSON.SectionTopicListName;
-                    $(listName).empty();
-                    $.each(model.responseJSON.Topics, function(index, item) {
-                        $(listName).append('<li>' + 
-                            '<a asp-controller="Home" data-id="' + item.Id + '" title="' + item.Title + '" - "' + item.Summary  + '" ' +
-                            'asp-action="EditTopic" asp-route-id="' + item.Id +  '">' + item.Title + '</a></li>');
+            complete: function(model) {
+                var listName = '#' + model.responseJSON.SectionTopicListName;
+                $(listName).empty();
+                $.each(model.responseJSON.Topics,
+                    function(index, item) {
+                        $(listName).append('<li>' +
+                            '<a asp-controller="Home" data-id="' +
+                            item.Id +
+                            '" title="' +
+                            item.Title +
+                            '" - "' +
+                            item.Summary +
+                            '" ' +
+                            'asp-action="EditTopic" asp-route-id="' +
+                            item.Id +
+                            '">' +
+                            item.Title +
+                            '</a></li>');
                     });
-                }
                 $(model.responseJSON.SectionTopicListName).trigger('chosen:updated');
                 sortable('.topicList');
                 $("#addRemoveTopicsDialog").modal("hide");
